@@ -4,6 +4,8 @@ AC_PREREQ([2.53])
 dnl TODO: fill in your package name and package version here
 AC_INIT([rainey],[1.0.0])
 
+AM_INIT_AUTOMAKE([foreign])
+
 dnl required versions of gstreamer and plugins-base
 GST_REQUIRED=1.0.0
 GSTPB_REQUIRED=1.0.0
