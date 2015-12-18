@@ -1,0 +1,8 @@
+gst_markin_get_type
+gst_markout_get_type
+gst_meta_marking_api_get_type
+gst_meta_marking_free
+gst_meta_marking_get_info
+gst_meta_marking_init
+gst_meta_marking_transform
+gst_plugin_desc
