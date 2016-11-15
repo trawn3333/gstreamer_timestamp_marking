@@ -13,9 +13,6 @@ GSTPB_REQUIRED=1.0.0
 AC_CONFIG_SRCDIR([src])
 AC_CONFIG_HEADERS([config.h])
 
-dnl required version of automake
-AM_INIT_AUTOMAKE([1.10])
-
 dnl enable mainainer mode by default
 AM_MAINTAINER_MODE([enable])
 
