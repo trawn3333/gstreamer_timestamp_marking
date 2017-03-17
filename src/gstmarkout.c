@@ -167,9 +167,9 @@ gst_markout_transform_ip (GstBaseTransform * trans, GstBuffer * in)
 	GstClockTimeDiff diff = GST_CLOCK_DIFF(meta->in_timestamp, gst_clock_get_time(clock));
 	gst_object_unref(clock);
 
-	GST_DEBUG_OBJECT(GST_MARKOUT(trans), "Mark Duration: %lldms", (diff / 1000000));
+	GST_DEBUG_OBJECT(GST_MARKOUT(trans), "Mark Duration: %" G_GINT64_FORMAT "ms", (diff / 1000000));
 
-	gst_buffer_remove_meta(in, meta);
+	gst_buffer_remove_meta(in, (GstMeta*)meta);
 
 	return GST_FLOW_OK;
 }
