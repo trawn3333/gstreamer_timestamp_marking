@@ -153,6 +153,7 @@ gst_markin_class_init (GstmarkinClass * klass)
 static void
 gst_markin_init (Gstmarkin * element)
 {
+  gst_base_transform_set_passthrough((GstBaseTransform*)element, TRUE);
 	/*
 	element->disable_filter_at_buffer_index = G_MAXINT64;
 	element->filter_if_not_mod_equals = 0;
@@ -165,6 +166,11 @@ gst_markin_init (Gstmarkin * element)
 static GstFlowReturn
 gst_markin_transform_ip (GstBaseTransform * trans, GstBuffer * in)
 {
+    if(! gst_buffer_is_writable(in))
+	{
+	    return GST_FLOW_OK;
+	}
+	
 	GstMetaMarking* meta = GST_META_MARKING_ADD(in);
 
 	GstClock* clock = gst_system_clock_obtain ();
@@ -178,25 +184,7 @@ static void
 gst_markin_set_property (GObject * object, guint prop_id,
 		const GValue * value, GParamSpec * pspec)
 {
-	Gstmarkin *element = GST_MARKIN (object);
-
 	switch (prop_id) {
-	/*case PROP_DISABLE_FILTER_AT_BUFFER_INDEX:
-		GST_DEBUG_OBJECT(element, "will disable filtering at buffer index %" G_GINT64_FORMAT, g_value_get_int64(value));
-		element->disable_filter_at_buffer_index = g_value_get_int64(value);
-		break;
-	case PROP_FILTER_IF_NOT_MOD_EQUALS:
-		GST_DEBUG_OBJECT(element, "will filter if index mod equals %" G_GINT64_FORMAT, g_value_get_int64(value));
-		element->filter_if_not_mod_equals = g_value_get_int64(value);
-		break;
-	case PROP_PASS_EVERY_MILLISECONDS:
-		GST_DEBUG_OBJECT(element, "will pass every milliseconds %" G_GUINT64_FORMAT, g_value_get_uint64(value));
-		element->pass_every_milliseconds = g_value_get_uint64(value);
-		break;
-	case PROP_PASS_LIMIT:
-		GST_DEBUG_OBJECT(element, "will pass until %" G_GINT64_FORMAT, g_value_get_int64(value));
-		element->pass_limit = g_value_get_int64(value);
-		break;*/
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -207,21 +195,7 @@ static void
 gst_markin_get_property (GObject * object, guint prop_id,
 		GValue * value, GParamSpec * pspec)
 {
-	Gstmarkin *element = GST_MARKIN (object);
-
 	switch (prop_id) {
-	/*case PROP_DISABLE_FILTER_AT_BUFFER_INDEX:
-		g_value_set_int64(value, element->disable_filter_at_buffer_index);
-		break;
-	case PROP_FILTER_IF_NOT_MOD_EQUALS:
-		g_value_set_int64(value, element->filter_if_not_mod_equals);
-		break;
-	case PROP_PASS_EVERY_MILLISECONDS:
-		g_value_set_uint64(value, element->pass_every_milliseconds);
-		break;
-	case PROP_PASS_LIMIT:
-		g_value_set_int64(value, element->pass_limit);
-		break;*/
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;

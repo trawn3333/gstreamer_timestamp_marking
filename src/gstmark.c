@@ -74,7 +74,12 @@ gst_meta_marking_transform (GstBuffer *dest_buf,
                              GstBuffer *src_buf,
                              GQuark type,
                              gpointer data) {
-	GstMeta* dest_meta = GST_META_MARKING_ADD(dest_buf);
+	if(! gst_buffer_is_writable(dest_buf))
+	{
+		return FALSE;
+	}
+
+	GstMeta* dest_meta = (GstMeta*)GST_META_MARKING_ADD(dest_buf);
 
 	GstMetaMarking* src_meta_marking = (GstMetaMarking*)src_meta;
 	GstMetaMarking* dest_meta_marking = (GstMetaMarking*)dest_meta;
